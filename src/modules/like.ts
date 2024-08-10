@@ -3,6 +3,7 @@ import { Browser, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants.js';
 import buildURL from '../utils/build-urls.js';
 import { delay, delayRandom } from '../utils/delay.js';
+import header from '../utils/header.js';
 
 const { like: LIKE, pages: PAGES } = browserConstants;
 export default class LikeModule {
@@ -15,15 +16,15 @@ export default class LikeModule {
 	}
 
 	async getAmount() {
-		console.clear();
-		console.log('Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20');
 		let amount = 20;
 		while (true) {
+			header('Linkedin Bot', 'Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20', 'green');
 			const amountUser = await number({ message: 'Quantidade: ' });
 			amount = amountUser ? amountUser : amount;
 
 			if (amount < 1 || amount > 250) {
 				console.log('Quantidade inválida');
+				console.clear();
 				continue;
 			}
 			return amount;
@@ -31,8 +32,13 @@ export default class LikeModule {
 	}
 
 	async getHashtag() {
-		console.clear();
-		console.log('Informe a hashtag que deseja buscar.\n' + 'Exemplo: python, javascript, node, etc.');
+		header(
+			'Linkedin Bot',
+			'Informe a hashtag que deseja buscar.\n' +
+				'Exemplo: python, javascript, node, etc.\n\nObs.: Deixe em branco para curtir posts da pagina inicial\n',
+			'green',
+		);
+
 		const hashtag = await input({ message: 'Hashtag: ' });
 
 		if (hashtag.length < 1) {
@@ -50,20 +56,29 @@ export default class LikeModule {
 
 			let count = 0;
 			while (true) {
-				await this.page.waitForSelector(LIKE.btnsOfPost);
-				const buttons = await this.page.$$(LIKE.btnsOfPost);
-
-				for (const button of buttons) {
+				await this.page.waitForSelector('#fie-impression-container');
+				const cards = await this.page.$$('#fie-impression-container');
+				if (cards.length === 0) {
+					return;
+				}
+				// button of posts
+				for (const card of cards) {
+					const [btnLike, name] = await Promise.all([
+						card.$(LIKE.btnsOfPost),
+						card.$eval(LIKE.getName, el => el.textContent),
+					]);
+					if (!btnLike || !name) {
+						continue;
+					}
 					if (count >= amount) {
 						return;
 					}
-					await button.click();
-					//? TODO: mostrar no terminal o nome do post curtido e a quantidade de posts curtidos
-					//? [01] - nome do post
-					//? [02] - nome do post
-					//? Objetivo: Mostrar que o bot está realizando a ação de curtir, algo que é essencial caso o bot seja executador em background
-					await delayRandom(800, 1500);
+
+					await btnLike.click();
 					count++;
+					const index: string = `${count}`.padStart(2, '0');
+					console.log(`[${index}] - Curtindo post de ${name}`);
+					await delayRandom(800, 1500);
 				}
 
 				await this.page.waitForSelector(LIKE.btnShowMorePosts);
