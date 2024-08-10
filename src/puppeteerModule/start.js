@@ -1,8 +1,8 @@
 import puppeteer from "puppeteer";
-import puppeteerConfig from "../config/puppeteer.config.mjs";
 
 import { browserConstants } from "../config/constants.js";
-import { delay } from "../helper/delay.js";
+import puppeteerConfig from "../config/puppeteer.config.js";
+import { delay } from "../utils/delay.js";
 
 const { submitLogin, url } = browserConstants;
 
@@ -27,11 +27,11 @@ async function startBrowser() {
   }
 }
 
-async function login(username, password) {
+async function login(username, password): Promise<{ browser: any; page: any }>
   try {
     const { browser, page } = await startBrowser();
-    await page.type("input[id=username]", username);
-    await page.type("input[id=password]", password);
+    await page.type("input[id=username]", username, { delay: 100 });
+    await page.type("input[id=password]", password, { delay: 130 });
     await delay(1000);
     await page.click(submitLogin);
     await delay(5000);
