@@ -1,22 +1,19 @@
 import { input, password } from '@inquirer/prompts';
-import fs, { promises as fsPromises } from 'fs';
 import { Browser, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
-import { delay, delayRandom } from '../utils/delay';
+import { delayRandom } from '../utils/delay';
 
 const { login: LOGIN } = browserConstants;
 
 export class LoginModule {
-	private browser: Browser;
-	private page: Page;
 	private username: string;
 	private password: string;
-
-	constructor(browser: Browser, page: Page) {
-		this.browser = browser;
-		this.page = page;
-		this.username = 'a0a0coelho0@gmail.com';
-		this.password = 'LinkedinCoelho98765';
+	constructor(
+		private browser: Browser,
+		private page: Page,
+	) {
+		this.username = '';
+		this.password = '';
 	}
 
 	async getCredentials() {
@@ -36,61 +33,13 @@ export class LoginModule {
 	}
 
 	async setOnForm() {
-		await delay(5000);
-
 		await this.page.type(LOGIN.email, this.username);
 		await this.page.type(LOGIN.password, this.password);
-
-		await delay(1000);
+		await delayRandom(500, 1000);
 		await this.page.click(LOGIN.submit);
 	}
 
-	async saveSession() {
-		try {
-			const [cookies, sessionStorage, localStorage] = await Promise.all([
-				this.page.cookies(),
-				this.page.evaluate(() => sessionStorage),
-				this.page.evaluate(() => localStorage),
-			]);
-
-			await Promise.all([
-				fsPromises.writeFile('cookies.json', JSON.stringify(cookies, null, 2), 'utf-8'),
-				fsPromises.writeFile('sessionStorage.json', JSON.stringify(sessionStorage, null, 2), 'utf-8'),
-				fsPromises.writeFile('localStorage.json', JSON.stringify(localStorage, null, 2), 'utf-8'),
-			]);
-		} catch (error) {
-			console.error('Erro ao salvar a sessão:', error);
-		}
-	}
-
-	async loadSession(): Promise<boolean> {
-		// verificar se os arquivos existem
-		if (
-			!fs.existsSync('cookies.json') ||
-			!fs.existsSync('sessionStorage.json') ||
-			!fs.existsSync('localStorage.json')
-		) {
-			return false;
-		}
-
-		const [cookies, sessionStorage, localStorage] = await Promise.all([
-			fsPromises.readFile('cookies.json', 'utf-8'),
-			fsPromises.readFile('sessionStorage.json', 'utf-8'),
-			fsPromises.readFile('localStorage.json', 'utf-8'),
-		]);
-
-		await this.page.setCookie(...JSON.parse(cookies));
-		await this.page.evaluate(sessionStorage => {
-			window.sessionStorage = JSON.parse(sessionStorage);
-		}, sessionStorage);
-		await this.page.evaluate(localStorage => {
-			window.localStorage = JSON.parse(localStorage);
-		}, localStorage);
-
-		return true;
-	}
-
-	async isLoginError(): Promise<boolean> {
+	async isLoginSucess(): Promise<boolean> {
 		const usernameError = await this.page
 			.$eval(LOGIN.errorUsername, el => el.textContent?.trim() || null)
 			.catch(() => null);
@@ -110,34 +59,20 @@ export class LoginModule {
 			[usernameError, passwordError]?.includes('E-mail ou senha incorreta. Tente novamente ou  crie uma conta .')
 		) {
 			console.log('E-mail ou senha incorreta.');
-			return true;
+			return false;
 		}
 
-		return false;
+		return true;
 	}
 
 	async run() {
 		await this.page.goto(LOGIN.url);
-		await delay(1000);
-		console.clear();
+		await delayRandom(1500, 3000);
 
-		// const hasSession = await this.loadSession();
-		// console.log("hasSession ", hasSession)
-		// if (hasSession) {
-		// 	return;
-		// }
-
-		let loginSuccessful = false;
-		while (!loginSuccessful) {
-			// await this.getCredentials();
+		do {
+			console.clear();
+			await this.getCredentials();
 			await this.setOnForm();
-
-			if (await this.isLoginError()) continue;
-
-			loginSuccessful = true;
-		}
-
-		await delayRandom(2000, 5000);
-		await this.saveSession();
+		} while (await this.isLoginSucess());
 	}
 }

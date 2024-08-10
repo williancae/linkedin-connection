@@ -2,11 +2,14 @@ import { input, number } from '@inquirer/prompts';
 import { Browser, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants.js';
 import buildURL from '../utils/build-urls.js';
-import { delay } from '../utils/delay.js';
+import { delay, delayRandom } from '../utils/delay.js';
 
 const { like: LIKE, pages: PAGES } = browserConstants;
 export default class LikeModule {
-	constructor(private page: Page, private browser: Browser) {
+	constructor(
+		private page: Page,
+		private browser: Browser,
+	) {
 		this.page = page;
 		this.browser = browser;
 	}
@@ -55,13 +58,17 @@ export default class LikeModule {
 						return;
 					}
 					await button.click();
-					await delay(800);
+					//? TODO: mostrar no terminal o nome do post curtido e a quantidade de posts curtidos
+					//? [01] - nome do post
+					//? [02] - nome do post
+					//? Objetivo: Mostrar que o bot está realizando a ação de curtir, algo que é essencial caso o bot seja executador em background
+					await delayRandom(800, 1500);
 					count++;
 				}
 
 				await this.page.waitForSelector(LIKE.btnShowMorePosts);
 				await this.page.click(LIKE.btnShowMorePosts);
-				await delay(5000);
+				await delayRandom(3000, 5000);
 			}
 		} catch (err) {
 			console.error('Err: ', err);

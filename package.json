@@ -5,7 +5,7 @@
 	"type": "module",
 	"main": "main.js",
 	"scripts": {
-		 "start": "tsx src/main.ts",
+		"start": "tsx src/main.ts",
 		"format": "prettier --write \"src/**/*.ts\" "
 	},
 	"keywords": [],
@@ -23,6 +23,7 @@
 		"typescript": "^5.5.4"
 	},
 	"devDependencies": {
+		"prettier": "^3.3.3",
 		"ts-node": "^10.9.2"
 	}
 }

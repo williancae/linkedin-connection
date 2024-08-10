@@ -1,7 +1,10 @@
 import { Page } from 'puppeteer';
 
 export class LinkedinModule {
-	constructor(private browser: LinkedinModule, private page: Page) {
+	constructor(
+		private browser: LinkedinModule,
+		private page: Page,
+	) {
 		this.browser = browser;
 		this.page = page;
 	}

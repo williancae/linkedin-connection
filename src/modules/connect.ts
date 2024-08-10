@@ -7,7 +7,10 @@ import { getInputNumber, getInputText } from './../utils/input';
 const { connect: CONNECT, pages: PAGES } = browserConstants;
 
 class ConnectModule {
-	constructor(private browser: Browser, private page: Page) {
+	constructor(
+		private browser: Browser,
+		private page: Page,
+	) {
 		this.browser = browser;
 		this.page = page;
 	}

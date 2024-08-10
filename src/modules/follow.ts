@@ -8,7 +8,10 @@ import { getInputNumber, getInputText } from '../utils/input';
 const { followers: FOLLOWERS, pages: PAGES } = browserConstants;
 
 class FollowerModule {
-	constructor(private browser: Browser, private page: Page) {
+	constructor(
+		private browser: Browser,
+		private page: Page,
+	) {
 		this.browser = browser;
 		this.page = page;
 	}
