@@ -3,16 +3,11 @@ const browserConstants = {
 		feed: 'https://www.linkedin.com/feed/',
 		hashtag: 'https://www.linkedin.com/feed/hashtag/{{hashtag}}/',
 		search: 'https://www.linkedin.com/search/results/{{category}}/?keywords={{search}}',
-	},
-	login: {
-		url: 'https://www.linkedin.com/login',
-		email: 'input[id=username]',
-		password: 'input[id=password]',
-		submit: "button[data-litms-control-urn='login-submit']",
-		errorUsername: '#error-for-username',
-		errorPassword: '#error-for-password',
+		login: 'https://www.linkedin.com/login',
 	},
 	like: {
+		getName:
+			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
 		btnsOfPost:
 			"button.artdeco-button.artdeco-button--muted.artdeco-button--4.artdeco-button--tertiary.ember-view.social-actions-button.react-button__trigger[aria-pressed='false']",
 		btnShowMorePosts:
@@ -26,7 +21,7 @@ const browserConstants = {
 	connect: {
 		url: 'https://www.linkedin.com/search/results/people/?activelyHiring=%22true%22&geoUrn=%5B"106057199"%5D&keywords={{term}}',
 		connectButton: `button[aria-label*="Convidar"]`,
-		getName: value => value.split(' ')[1],
+		getName: (value: string) => value.split(' ')[1],
 		btnNoSendNote: `button[aria-label*="sem nota"]`,
 		btnAddNote: `button[aria-label="Adicionar nota"]`,
 		inputNote: "textarea[name='message']",

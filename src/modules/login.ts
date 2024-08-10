@@ -1,78 +1,50 @@
-import { input, password } from '@inquirer/prompts';
+import fs from 'fs';
 import { Browser, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
 import { delayRandom } from '../utils/delay';
-
-const { login: LOGIN } = browserConstants;
+const { pages: PAGES } = browserConstants;
 
 export class LoginModule {
-	private username: string;
-	private password: string;
 	constructor(
 		private browser: Browser,
 		private page: Page,
-	) {
-		this.username = '';
-		this.password = '';
+	) {}
+
+	async saveCookies(): Promise<void> {
+		const cookies = await this.page.cookies();
+		fs.writeFileSync('cookies.json', JSON.stringify(cookies, null, 2));
 	}
 
-	async getCredentials() {
-		do {
-			this.username = await input({ message: 'E-mail ou Telefone:' });
-			if (!this.username) {
-				console.log('O campo de e-mail/telefone não pode estar vazio.');
+	async loadCookies(): Promise<void> {
+		if (fs.existsSync('cookies.json')) {
+			const cookiesString = fs.readFileSync('cookies.json').toString();
+			const cookies = JSON.parse(cookiesString);
+
+			for (const cookie of cookies) {
+				await this.page.setCookie(cookie);
 			}
-		} while (!this.username);
-
-		do {
-			this.password = await password({ message: 'Senha', mask: true });
-			if (!this.password) {
-				console.log('O campo de senha não pode estar vazio.');
-			}
-		} while (!this.password);
+		}
+		return;
 	}
 
-	async setOnForm() {
-		await this.page.type(LOGIN.email, this.username);
-		await this.page.type(LOGIN.password, this.password);
-		await delayRandom(500, 1000);
-		await this.page.click(LOGIN.submit);
-	}
-
-	async isLoginSucess(): Promise<boolean> {
-		const usernameError = await this.page
-			.$eval(LOGIN.errorUsername, el => el.textContent?.trim() || null)
-			.catch(() => null);
-		const passwordError = await this.page
-			.$eval(LOGIN.errorPassword, el => el.textContent?.trim() || null)
-			.catch(() => null);
-
-		if (usernameError && usernameError.includes('Insira um nome de usuário válido')) {
-			console.log('O nome de usuário fornecido é inválido.');
-			return true;
-		}
-		if (passwordError && passwordError.includes('A senha deve ter no mínimo 6 caracteres.')) {
-			console.log('A senha fornecida deve ter pelo menos 6 caracteres.');
-			return true;
-		}
-		if (
-			[usernameError, passwordError]?.includes('E-mail ou senha incorreta. Tente novamente ou  crie uma conta .')
-		) {
-			console.log('E-mail ou senha incorreta.');
-			return false;
+	async redirectedToFeed(): Promise<boolean> {
+		const url = await this.page.url();
+		const onFeed = url.includes('feed');
+		if (onFeed) {
+			await delayRandom(1000, 5000);
+			await this.loadCookies();
 		}
 
-		return true;
+		return onFeed;
 	}
 
 	async run() {
-		await this.page.goto(LOGIN.url);
-		await delayRandom(1500, 3000);
-
+		await this.page.goto(PAGES.login);
+		await delayRandom(1000, 5000);
 		do {
-			console.clear();
-			await this.getCredentials();
-			await this.setOnForm();
-		} while (await this.isLoginSucess());
+			await delayRandom(1000, 5000);
+		} while (!this.redirectedToFeed());
+
+		await this.saveCookies();
 	}
 }

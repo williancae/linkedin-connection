@@ -14,3 +14,4 @@ package-lock.json
 # cache
 src/config/cache
 .cache
+cookies.json
