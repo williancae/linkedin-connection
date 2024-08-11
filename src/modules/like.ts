@@ -30,7 +30,7 @@ export default class LikeModule {
 		}
 	}
 
-	async getHashtag() {
+	async getHashtag(): Promise<string | string[]> {
 		header(
 			'Linkedin Bot',
 			'Informe a hashtag que deseja buscar.\n' +
@@ -38,12 +38,10 @@ export default class LikeModule {
 			'green',
 		);
 
-		const hashtag = await input({ message: 'Hashtag: ' });
+		let hashtags: string[] | string = await input({ message: 'Hashtag: ' });
+		hashtags = hashtags.split(`,`).map((hashtag: string) => hashtag.trim());
 
-		if (hashtag.length < 1) {
-			return '';
-		}
-		return hashtag;
+		return hashtags;
 	}
 
 	async likingPosts(amount = 20, hashtag = '') {
@@ -92,9 +90,12 @@ export default class LikeModule {
 	async run() {
 		try {
 			const amount = await this.getAmount();
-			const hashtag = await this.getHashtag();
+			const hashtags = await this.getHashtag();
 
-			await this.likingPosts(amount, hashtag);
+			for (const hashtag of hashtags) {
+				await this.likingPosts(20, hashtag);
+				await delayRandom(3000, 5000);
+			}
 		} catch (err) {
 			return;
 		}

@@ -92,11 +92,14 @@ class ConnectModule {
 	async run(): Promise<void> {
 		try {
 			const amount = await this.getAmount();
-			const term = await this.getTermOfSearch();
+			let terms: string | string[] = await this.getTermOfSearch();
 			const hasGold = await this.hasGoldAccount();
 			const note = await this.getNote(hasGold);
 
-			await this.startConnect(amount, term, note);
+			terms = terms.split(',').map((hashtag: string) => hashtag.trim());
+			for (const term of terms) {
+				await this.startConnect(amount, term, note);
+			}
 		} catch (err) {
 			return;
 		}
