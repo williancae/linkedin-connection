@@ -1,0 +1,90 @@
+{
+	"software_developers": [
+		"Olá {{name}}, muito prazer! Meu nome é Willian, tambem sou desenvolvedor. Aceite meu convite ai.... 😉 sera um prazer ter você na minha rede de conexões. Há! Estou a procura de um Job, se souber de algum me marque no post, me indica ou me mande aqui no chat. Obrigado!",
+
+		"Olá {{name}}, muito prazer! Meu nome é Willian, também sou desenvolvedor. Aceite meu convite... 😉 Será ótimo ter você na minha rede de conexões. Estou em busca de um novo Job, se souber de algo interessante, me avise ou me indique! Obrigado!",
+
+		"Oi {{name}}, tudo bem? Sou Willian, desenvolvedor com foco em Python e NodeJs. Adoraria me conectar com você e trocar ideias sobre tecnologia. Estou procurando novas oportunidades, então se souber de algo, me avisa aqui no chat. Valeu!",
+
+		"Olá {{name}}, prazer em te conhecer! Sou Willian, desenvolvedor. Aceite meu convite! 😉 Será um prazer ter você na minha rede. Estou em busca de um novo desafio profissional, se souber de alguma vaga, me avise ou me indique. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor como você! Vamos nos conectar? Estou à procura de um novo emprego, e seria ótimo se pudesse me indicar algo ou me avisar sobre oportunidades. Valeu! 😄",
+
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor. Aceite meu convite... 😉 Será incrível ter você na minha rede de conexões. Estou em busca de novos desafios, se puder me ajudar com alguma indicação ou dica, ficarei muito grato. Obrigado!",
+
+		"Oi {{name}}, tudo certo? Sou Willian, também sou desenvolvedor. Vamos nos conectar? Estou à procura de um novo job, se souber de algo interessante, me avisa ou me indica. Obrigado! 😉",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com foco em APIs e backend. Aceite meu convite! 😉 Será um prazer trocar experiências com você. Estou à procura de novas oportunidades, se puder me indicar ou avisar sobre vagas, agradeço muito!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor. Adoraria me conectar com você e ampliar nossa rede de contatos. Estou em busca de um novo emprego, se puder me ajudar com alguma indicação, fico muito grato. Vamos nos conectar?",
+
+		"Olá {{name}}, prazer em conhecer! Sou Willian, desenvolvedor. Vamos nos conectar? Estou procurando novas oportunidades, então se souber de algo bacana, me avisa ou me indica por aqui. Valeu! 😄",
+
+		"Oi {{name}}, tudo bem? Sou Willian, também desenvolvedor. Aceite meu convite! 😉 Será ótimo ter você na minha rede. Estou à procura de um novo desafio, se puder me indicar alguma vaga ou me avisar sobre oportunidades, agradeço muito. Obrigado!"
+	],
+	"tech_recruiters": [
+		"Olá! Sou Willian, desenvolvedor com 5+ anos de experiência. Aceite meu convite! 😉 Conectar com você seria ótimo. Se precisar de um desenvolvedor experiente em Python, NodeJs e APIs, estou pronto para novas oportunidades. Obrigado! Meu WhatsApp: wa.me/5561983244927",
+
+		"Olá {{name}}, muito prazer! Meu nome é Willian e sou desenvolvedor. Aceite meu convite ai.... 😉 sera um prazer ter você na minha rede de conexões. Vi que você é recruiter se tiver alguma oportunidade me procure, estou sempre abertos pra novas experiencias. Obrigado!",
+
+		"Olá {{name}}, muito prazer! Meu nome é Willian e sou desenvolvedor com experiência em NestJs e PostgreSQL. Aceite meu convite, será ótimo ter você na minha rede. Se você estiver procurando por alguém com minha expertise, estou aberto a novas oportunidades. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com foco em Django e MongoDB. Vi que você trabalha com recrutamento e adoraria me conectar para explorar oportunidades juntos. Se precisar de um desenvolvedor para projetos robustos, estou à disposição. Meu WhatsApp: wa.me/5561983244927",
+
+		"Olá {{name}}, sou Willian, desenvolvedor especializado em NodeJs e Redis. Estou buscando novos desafios e acho que poderíamos trocar ótimas ideias. Se você estiver à procura de talentos na área, ficarei feliz em conversar. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com expertise em APIs REST e SQL. Estou sempre em busca de novas oportunidades para aplicar minhas habilidades. Se precisar de um desenvolvedor com foco em eficiência e escalabilidade, estou disponível. Vamos nos conectar?",
+
+		"Olá {{name}}, tudo bem? Meu nome é Willian, sou desenvolvedor com experiência em FastAPI e PostgreSQL. Conectar com você seria ótimo para discutirmos novas oportunidades. Se estiver buscando um profissional para integrar sua equipe, estou à disposição. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com mais de 5 anos de experiência em Python e automação. Adoraria me conectar com você e explorar possíveis oportunidades na sua rede. Se precisar de alguém com minhas habilidades, estarei por aqui. Obrigado!",
+
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor especializado em NodeJs e APIs. Vi que você trabalha com recrutamento e gostaria de me conectar para explorar novas oportunidades. Estou sempre aberto a novas experiências e desafios. Vamos nos conectar?",
+
+		"Oi {{name}}, sou Willian, desenvolvedor full stack com experiência em Python e NodeJs. Adoraria me conectar com você para discutirmos possíveis colaborações. Se precisar de um desenvolvedor com experiência em projetos complexos, estarei por aqui. Obrigado!",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com expertise em FastAPI e PostgreSQL. Estou em busca de novos desafios e acredito que poderíamos nos ajudar mutuamente. Se precisar de alguém com minhas habilidades, estarei disponível para conversar. Vamos nos conectar!"
+	],
+	"business_developers": [
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor com experiência em criar soluções que impulsionam o crescimento de negócios. Adoraria me conectar para trocarmos ideias sobre como a tecnologia pode ajudar a alavancar resultados. Estou à disposição para colaborar. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com 5+ anos de experiência em Python e NodeJs. Acredito que a tecnologia bem aplicada pode transformar negócios. Vamos nos conectar para explorar como podemos colaborar e criar soluções inovadoras juntos?",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com foco em APIs que otimizam processos empresariais. Seria ótimo nos conectarmos para discutir como a tecnologia pode melhorar a eficiência e impulsionar seu negócio. Vamos conversar?",
+
+		"Oi {{name}}, sou Willian, desenvolvedor especializado em criar soluções que resolvem problemas de negócios com tecnologia. Vamos nos conectar? Adoraria discutir como posso ajudar a sua empresa a alcançar novos patamares com software eficiente. Obrigado!",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com experiência em criar plataformas escaláveis que suportam o crescimento de negócios. Vamos nos conectar para compartilhar ideias e explorar possíveis colaborações? Fico à disposição para conversarmos. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com expertise em otimização de processos através da tecnologia. Adoraria me conectar com você para explorarmos como minha experiência pode ajudar no crescimento do seu negócio. Vamos nos conectar?",
+
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor focado em criar soluções que impulsionam a eficiência empresarial. Vamos nos conectar? Adoraria trocar ideias sobre como a tecnologia pode apoiar o crescimento de negócios. Obrigado!",
+
+		"Oi {{name}}, tudo bem? Sou Willian, desenvolvedor com vasta experiência em tecnologias que otimizam negócios. Vamos nos conectar para explorar como podemos colaborar em soluções tecnológicas que fazem a diferença? Fico no aguardo. Obrigado!",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com foco em soluções escaláveis que suportam o crescimento empresarial. Será um prazer me conectar com você e discutir como minha expertise pode contribuir para o sucesso do seu negócio. Vamos conversar? Obrigado!",
+
+		"Oi {{name}}, muito prazer! Sou Willian, desenvolvedor com experiência em criar APIs e sistemas que otimizam processos empresariais. Adoraria me conectar com você para trocar ideias sobre como a tecnologia pode alavancar seu negócio. Vamos conversar?"
+	],
+	"ceo_founders_of_companies": [
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor com 5+ anos de experiência em criar soluções tecnológicas. Adoraria me conectar para discutir como posso ajudar sua empresa a alcançar novos níveis de inovação e eficiência. Vamos nos conectar? Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com foco em tecnologias que impulsionam negócios. Vi que você é CEO, seria ótimo nos conectarmos para explorar como minha expertise pode contribuir para o crescimento da sua empresa. Estou à disposição para conversarmos. Obrigado!",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com expertise em criar soluções que resolvem desafios empresariais. Adoraria me conectar com você para explorar como minha experiência pode apoiar sua empresa em atingir novos patamares. Vamos nos conectar?",
+
+		"Oi {{name}}, sou Willian, desenvolvedor especializado em tecnologias que promovem inovação. Vi que você lidera uma empresa de sucesso e gostaria de me conectar para discutirmos como posso agregar valor ao seu negócio. Vamos conversar?",
+
+		"Olá {{name}}, prazer em conhecer! Sou Willian, desenvolvedor com vasta experiência em criar soluções escaláveis. Seria ótimo me conectar com você para discutirmos como minha expertise pode apoiar o crescimento da sua empresa. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor com foco em eficiência e inovação. Gostaria de me conectar para compartilhar ideias sobre como minha experiência em tecnologia pode ajudar sua empresa a crescer ainda mais. Vamos nos conectar?",
+
+		"Olá {{name}}, muito prazer! Sou Willian, desenvolvedor com mais de 5 anos de experiência em projetos que impulsionam negócios. Seria ótimo nos conectarmos para discutir como posso contribuir para o sucesso contínuo da sua empresa. Obrigado!",
+
+		"Oi {{name}}, sou Willian, desenvolvedor focado em criar soluções tecnológicas robustas. Gostaria de me conectar com você para explorar como minha experiência pode ajudar sua empresa a superar desafios e crescer. Vamos conversar?",
+
+		"Olá {{name}}, sou Willian, desenvolvedor com expertise em transformar desafios empresariais em oportunidades de inovação. Gostaria de me conectar com você para explorar como posso contribuir para o sucesso da sua empresa. Obrigado!",
+
+		"Oi {{name}}, muito prazer! Sou Willian, desenvolvedor com experiência em apoiar CEOs na liderança de suas empresas através de tecnologia eficaz. Gostaria de me conectar com você para discutirmos como posso ajudar a alavancar o seu negócio. Vamos conversar?"
+	]
+}

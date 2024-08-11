@@ -63,7 +63,7 @@ class ConnectModule {
 			}
 			console.warn(`Sua mensagem deve ter entre 1 e ${lengthNote} caracteres.`);
 			console.log('Tente novamente.');
-			delayRandom(1000, 2000);
+			await delayRandom(1000, 2000);
 		}
 	}
 
@@ -97,6 +97,7 @@ class ConnectModule {
 			const note = await this.getNote(hasGold);
 
 			terms = terms.split(',').map((hashtag: string) => hashtag.trim());
+			console.log('terms: ', terms);
 			for (const term of terms) {
 				await this.startConnect(amount, term, note);
 			}
@@ -104,6 +105,7 @@ class ConnectModule {
 			return;
 		}
 	}
+	// Olá {{name}}, muito prazer! Meu nome é Willian, tambem sou desenvolvedor. Aceite meu convite ai.... 😉 sera um prazer ter você na minha rede de conexões. Há! Estou a procura de um Job, se souber de algum me marque no post, me indica ou me mande aqui no chat. Obrigado!
 
 	async sendWithoutNote(): Promise<void> {
 		await delayRandom(800, 1300);
@@ -142,10 +144,11 @@ class ConnectModule {
 				await delayRandom(3000, 5000);
 				await this.page.waitForSelector(CONNECT.connectButton);
 				const buttonsOfPeoples = await this.page.$$(CONNECT.connectButton);
-
+				if (buttonsOfPeoples.length === 0) {
+					return;
+				}
 				for (const people of buttonsOfPeoples) {
 					if (count >= amount) {
-						await this.page.goto(PAGES.feed);
 						return;
 					}
 					await delayRandom(1000, 2000);
@@ -156,6 +159,7 @@ class ConnectModule {
 					} else {
 						await this.sendWithoutNote();
 					}
+					count++;
 				}
 
 				await delayRandom(2000, 5000);
