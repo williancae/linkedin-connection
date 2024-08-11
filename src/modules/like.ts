@@ -8,8 +8,8 @@ import header from '../utils/header.js';
 const { like: LIKE, pages: PAGES } = browserConstants;
 export default class LikeModule {
 	constructor(
-		private page: Page,
 		private browser: Browser,
+		private page: Page,
 	) {
 		this.page = page;
 		this.browser = browser;
@@ -18,20 +18,19 @@ export default class LikeModule {
 	async getAmount() {
 		let amount = 20;
 		while (true) {
-			header('Linkedin Bot', 'Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20', 'green');
+			header('Linkedin Bot', 'Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20\n', 'green');
 			const amountUser = await number({ message: 'Quantidade: ' });
 			amount = amountUser ? amountUser : amount;
 
 			if (amount < 1 || amount > 250) {
 				console.log('Quantidade inválida');
-				console.clear();
 				continue;
 			}
 			return amount;
 		}
 	}
 
-	async getHashtag() {
+	async getHashtag(): Promise<string | string[]> {
 		header(
 			'Linkedin Bot',
 			'Informe a hashtag que deseja buscar.\n' +
@@ -39,12 +38,10 @@ export default class LikeModule {
 			'green',
 		);
 
-		const hashtag = await input({ message: 'Hashtag: ' });
+		let hashtags: string[] | string = await input({ message: 'Hashtag: ' });
+		hashtags = hashtags.split(`,`).map((hashtag: string) => hashtag.trim());
 
-		if (hashtag.length < 1) {
-			return '';
-		}
-		return hashtag;
+		return hashtags;
 	}
 
 	async likingPosts(amount = 20, hashtag = '') {
@@ -91,13 +88,16 @@ export default class LikeModule {
 	}
 
 	async run() {
-		const amount = await this.getAmount();
-		const hashtag = await this.getHashtag();
-
 		try {
-			await this.likingPosts(amount, hashtag);
+			const amount = await this.getAmount();
+			const hashtags = await this.getHashtag();
+
+			for (const hashtag of hashtags) {
+				await this.likingPosts(20, hashtag);
+				await delayRandom(3000, 5000);
+			}
 		} catch (err) {
-			await this.page.goto(PAGES.feed);
+			return;
 		}
 	}
 }

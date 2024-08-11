@@ -1,8 +1,10 @@
+import { select } from '@inquirer/prompts';
 import { Browser, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
 
 import buildURL from '../utils/build-urls';
 import { delayRandom } from '../utils/delay';
+import header from '../utils/header';
 import { getInputNumber, getInputText } from '../utils/input';
 
 const { followers: FOLLOWERS, pages: PAGES } = browserConstants;
@@ -17,10 +19,9 @@ class FollowerModule {
 	}
 
 	async getAmount() {
-		console.clear();
-		console.log('Quantidade de pessoas que deseja seguir. Máximo: 250\nValor padrão: 20');
 		while (true) {
-			const amount = await getInputNumber('Quantidade: ');
+			header('Linkedin Bot', 'Quantidade de pessoas que deseja seguir. Máximo: 250\nValor padrão: 20', 'green');
+			const amount = await getInputNumber('Quantidade: ', 20);
 			if (isNaN(amount) || amount < 1 || amount > 250) {
 				console.log('Quantidade inválida');
 				continue;
@@ -30,30 +31,34 @@ class FollowerModule {
 	}
 
 	async getTerm() {
-		console.clear();
-		console.log('Informe o termo de busca. Exemplo: Desenvolvedor, Recrutador, etc.');
-
 		while (true) {
+			header('Linkedin Bot', 'Informe o termo de busca.\nExemplo: Desenvolvedor, Recrutador, etc.', 'green');
 			const term = await getInputText('Termo: ');
-			if (term.length < 1) {
-				console.log('Termo inválido.');
-				continue;
+			if (term.length > 1) {
+				return term;
 			}
-			return term;
 		}
 	}
 
 	async getCategory() {
-		console.clear();
-		console.log('Buscar por: Opção padrão: 1');
-		console.log('1. Pessoas');
-		console.log('2. Empresas');
-
 		const categoris = ['people', 'company'];
 		while (true) {
-			const category = await getInputNumber('Categoria: ', 1);
-			if ([1, 2].includes(category)) {
-				return categoris[category - 1];
+			header('Linkedin Bot', 'Seleciona a categoria que deseja buscar.', 'green');
+			const category = await select({
+				message: 'Categoria: ',
+				choices: [
+					{
+						name: 'Pessoas',
+						value: 'people',
+					},
+					{
+						name: 'Empresas',
+						value: 'company',
+					},
+				],
+			});
+			if (categoris.includes(category)) {
+				return category;
 			}
 			console.log('Categoria inválida');
 		}
