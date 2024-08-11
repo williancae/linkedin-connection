@@ -51,8 +51,9 @@ npm start
 
 ### Features
 
-- Curtir Posts
-- Seguir e Mandar Mensagem
+- Curtir do feed e por Hashtag
+- Conectar e Mandar Mensagem
+- Seguir
 
 ### Proximas Features
 
