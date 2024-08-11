@@ -1,7 +1,9 @@
-import { Browser, Page } from 'puppeteer';
+import { Browser, ElementHandle, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
-import { buildURL } from '../utils/build-urls';
+
+import buildURL from '../utils/build-urls';
 import { delayRandom } from '../utils/delay';
+import header from '../utils/header';
 import { getInputNumber, getInputText } from './../utils/input';
 
 const { connect: CONNECT, pages: PAGES } = browserConstants;
@@ -16,10 +18,8 @@ class ConnectModule {
 	}
 
 	async hasNote(): Promise<boolean> {
-		console.clear();
-		console.log('Deseja enviar mensagem para as conexões?');
-
 		while (true) {
+			header('Linkedin Bot', 'Deseja enviar mensagem para as conexões?\n', 'green');
 			const needSendNote = await getInputText('[S]/N: ', true, 's');
 			if (['s', 'n'].includes(needSendNote)) {
 				return needSendNote === 's';
@@ -30,12 +30,12 @@ class ConnectModule {
 	}
 
 	async getAmount(): Promise<number> {
-		console.clear();
-		console.log(
-			'Quantas conexões deseja fazer?\nObs.: O máximo de conexões semanal permitida pelo linkedin é de 250 conexões\n',
-		);
-
 		while (true) {
+			header(
+				'Linkedin Bot',
+				'Quantas conexões deseja fazer?\n\nObs.: O máximo de conexões semanal permitida pelo linkedin é de 250 conexões\n',
+				'green',
+			);
 			const amountConnections = await getInputNumber('Quantidade de conexões: ');
 			if (amountConnections > 0 && amountConnections <= 250) {
 				return amountConnections;
@@ -44,32 +44,33 @@ class ConnectModule {
 		}
 	}
 
-	async getNote(): Promise<string> {
+	async getNote(hasGold: boolean): Promise<string> {
 		const hasNote = await this.hasNote();
 		if (!hasNote) {
 			return '';
 		}
-
-		console.clear();
-		console.log(
-			`\nEscreva a mensagem que deseja enviar: Obs.: Use no máximo 200 caracteres\n
-      Adicione a chave {{name}} para adicionar o nome do usuário que será conectado\n`,
-		);
+		const lengthNote = hasGold ? 300 : 200;
 
 		while (true) {
+			header(
+				'Linkedin Bot',
+				`\nEscreva a mensagem que deseja enviar: Obs.: Use no máximo 200 caracteres\nAdicione a chave {{name}} para adicionar o nome do usuário que será conectado\n`,
+				'green',
+			);
 			const note = await getInputText('Mensagem: ');
-			if (note.length > 0 && note.length <= 200) {
+			if (note.length > 0 && note.length <= lengthNote) {
 				return note;
 			}
-			console.log('Mensagem inválida, tente novamente.');
+			console.warn(`Sua mensagem deve ter entre 1 e ${lengthNote} caracteres.`);
+			console.log('Tente novamente.');
+			delayRandom(1000, 2000);
 		}
 	}
 
 	async getTermOfSearch(): Promise<string> {
-		console.clear();
-		console.log('Informe o termo de busca. Exemplo: Desenvolvedor, Recrutador, etc.');
-
 		while (true) {
+			header('Linkedin Bot', 'Informe o termo de busca. Exemplo: Desenvolvedor, Recrutador, etc.\n', 'green');
+
 			const term = await getInputText('Termo: ');
 			if (term.length > 0) {
 				return term;
@@ -78,13 +79,53 @@ class ConnectModule {
 		}
 	}
 
+	async hasGoldAccount(): Promise<boolean> {
+		while (true) {
+			header('Linkedin Bot', 'Você possui conta premium no Linkedin?\n', 'green');
+			const hasGold = await getInputText('S/[N]: ', true, 'n');
+			if (['s', 'n'].includes(hasGold)) {
+				return hasGold === 's';
+			}
+		}
+	}
+
 	async run(): Promise<void> {
-		const amount = await this.getAmount();
-		const term = await this.getTermOfSearch();
+		try {
+			const amount = await this.getAmount();
+			const term = await this.getTermOfSearch();
+			const hasGold = await this.hasGoldAccount();
+			const note = await this.getNote(hasGold);
 
-		const note = await this.getNote();
+			await this.startConnect(amount, term, note);
+		} catch (err) {
+			return;
+		}
+	}
 
-		await this.startConnect(amount, term, note);
+	async sendWithoutNote(): Promise<void> {
+		await delayRandom(800, 1300);
+		await this.page.waitForSelector(CONNECT.btnNoSendNote);
+		await this.page.click(CONNECT.btnNoSendNote);
+	}
+
+	async sendWithNote(people: ElementHandle<Element>, note: string): Promise<void> {
+		await delayRandom(1500, 2500);
+		const elemento = await people.getProperty('ariaLabel').then(el => el.jsonValue());
+		const name = CONNECT.getName(elemento as string);
+
+		await this.page.waitForSelector(CONNECT.btnAddNote);
+		await this.page.click(CONNECT.btnAddNote);
+		await delayRandom(800, 1500);
+
+		const msg = note.replace('{{name}}', name);
+
+		await this.page.waitForSelector(CONNECT.inputNote);
+		await this.page.type(CONNECT.inputNote, msg);
+		await delayRandom(800, 1300);
+
+		await this.page.waitForSelector(CONNECT.btnSendNote);
+		await this.page.click(CONNECT.btnSendNote);
+		await delayRandom(800, 1300);
 	}
 
 	async startConnect(amount: number, term: string, note: string): Promise<void> {
@@ -108,27 +149,9 @@ class ConnectModule {
 					await people.click();
 
 					if (note.length > 0) {
-						await delayRandom(1500, 2500);
-						const elemento = await people.getProperty('ariaLabel').then(el => el.jsonValue());
-						const name = CONNECT.getName(elemento);
-
-						await this.page.waitForSelector(CONNECT.btnAddNote);
-						await this.page.click(CONNECT.btnAddNote);
-						await delayRandom(800, 1500);
-
-						const msg = note.replace('{{name}}', name);
-
-						await this.page.waitForSelector(CONNECT.inputNote);
-						await this.page.type(CONNECT.inputNote, msg);
-						await delayRandom(800, 1300);
-
-						await this.page.waitForSelector(CONNECT.btnSendNote);
-						await this.page.click(CONNECT.btnSendNote);
-						await delayRandom(800, 1300);
+						await this.sendWithNote(people, note);
 					} else {
-						await delayRandom(800, 1300);
-						await this.page.waitForSelector(CONNECT.btnNoSendNote);
-						await this.page.click(CONNECT.btnNoSendNote);
+						await this.sendWithoutNote();
 					}
 				}
 

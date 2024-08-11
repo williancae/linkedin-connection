@@ -8,8 +8,8 @@ import header from '../utils/header.js';
 const { like: LIKE, pages: PAGES } = browserConstants;
 export default class LikeModule {
 	constructor(
-		private page: Page,
 		private browser: Browser,
+		private page: Page,
 	) {
 		this.page = page;
 		this.browser = browser;
@@ -18,13 +18,12 @@ export default class LikeModule {
 	async getAmount() {
 		let amount = 20;
 		while (true) {
-			header('Linkedin Bot', 'Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20', 'green');
+			header('Linkedin Bot', 'Quantidade de Posts que deseja curtir. Máximo: 250\nValor padrão: 20\n', 'green');
 			const amountUser = await number({ message: 'Quantidade: ' });
 			amount = amountUser ? amountUser : amount;
 
 			if (amount < 1 || amount > 250) {
 				console.log('Quantidade inválida');
-				console.clear();
 				continue;
 			}
 			return amount;
@@ -91,13 +90,13 @@ export default class LikeModule {
 	}
 
 	async run() {
-		const amount = await this.getAmount();
-		const hashtag = await this.getHashtag();
-
 		try {
+			const amount = await this.getAmount();
+			const hashtag = await this.getHashtag();
+
 			await this.likingPosts(amount, hashtag);
 		} catch (err) {
-			await this.page.goto(PAGES.feed);
+			return;
 		}
 	}
 }

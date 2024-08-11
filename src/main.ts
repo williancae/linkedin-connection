@@ -3,6 +3,8 @@ import { select } from '@inquirer/prompts';
 import puppeteer from 'puppeteer';
 import { browserConstants } from './config/constants';
 import puppeteerConfig from './config/puppeteer.config';
+import ConnectModule from './modules/connect';
+import FollowerModule from './modules/follow';
 import LikeModule from './modules/like';
 import { LoginModule } from './modules/login';
 import { delayRandom } from './utils/delay';
@@ -23,9 +25,6 @@ const { pages: PAGES } = browserConstants;
 		console.log('Realizando login...');
 		await new LoginModule(browser, page).run();
 	}
-	// const connectModule = new ConnectModule(browser, page);
-	// const followerModule = new FollowerModule(browser, page);
-	// const linkedinModule = new LinkedinModule(browser, page);
 
 	header('Linkedin Bot', 'Bot para automatizar ações no Linkedin', 'green');
 	while (true) {
@@ -54,16 +53,19 @@ const { pages: PAGES } = browserConstants;
 
 		switch (option) {
 			case 1:
-				console.log('await connectModule.run()');
+				//DONE:
+				await new ConnectModule(browser, page).run();
 				break;
 			case 2:
-				console.log('await followerModule.run()');
+				//DONE:
+				await new FollowerModule(browser, page).run();
 				break;
 			case 3:
-				await new LikeModule(page, browser).run();
+				//DONE:
+				await new LikeModule(browser, page).run();
 				break;
 			case 4:
-				console.log('await browser.close()');
+				await browser.close();
 				return;
 			default:
 				console.log('Opção inválida');
