@@ -1,4 +1,7 @@
 const browserConstants = {
+	components: {
+		username: 'div.t-16.t-black.t-bold',
+	},
 	pages: {
 		feed: 'https://www.linkedin.com/feed/',
 		hashtag: 'https://www.linkedin.com/feed/hashtag/{{hashtag}}/',
@@ -6,6 +9,7 @@ const browserConstants = {
 		login: 'https://www.linkedin.com/login',
 	},
 	like: {
+		cards: '#fie-impression-container',
 		getName:
 			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
 		btnsOfPost:
@@ -31,6 +35,16 @@ const browserConstants = {
 	followers: {
 		btnFollow: "button[aria-label*='Seguir']",
 		nextPage: "button[aria-label='Avançar']",
+	},
+	comments: {
+		cards: 'div#fie-impression-container',
+		getName:
+			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
+		btnComment: "button[aria-label='Comentar']",
+		btnSend: '.artdeco-button artdeco-button--1 artdeco-button--tertiary',
+		getCommentsAuthor: 'h3.comments-comment-meta__description',
+		btnShowMorePosts:
+			'.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button',
 	},
 	jobs: {
 		jobSearchUrl: 'https://www.linkedin.com/jobs/search/?keywords={{term}}',

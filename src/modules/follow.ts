@@ -6,6 +6,7 @@ import buildURL from '../utils/build-urls';
 import { delayRandom } from '../utils/delay';
 import header from '../utils/header';
 import { getInputNumber, getInputText } from '../utils/input';
+import { TypePageEnum } from '../utils/type-page';
 
 const { followers: FOLLOWERS, pages: PAGES } = browserConstants;
 
@@ -41,7 +42,7 @@ class FollowerModule {
 	}
 
 	async getCategory() {
-		const categoris = ['people', 'company'];
+		const categoris = [TypePageEnum.PEOPLE, TypePageEnum.BUSINESS];
 		while (true) {
 			header('Linkedin Bot', 'Seleciona a categoria que deseja buscar.', 'green');
 			const category = await select({
@@ -49,11 +50,11 @@ class FollowerModule {
 				choices: [
 					{
 						name: 'Pessoas',
-						value: 'people',
+						value: TypePageEnum.PEOPLE,
 					},
 					{
 						name: 'Empresas',
-						value: 'company',
+						value: TypePageEnum.BUSINESS,
 					},
 				],
 			});
@@ -64,7 +65,11 @@ class FollowerModule {
 		}
 	}
 
-	async actionFollowers(amount = 20, term = 'recruiter', category = 'people') {
+	async actionFollowers(
+		amount: number = 20,
+		term: string = 'recruiter',
+		category: TypePageEnum = TypePageEnum.PEOPLE,
+	) {
 		try {
 			const url = buildURL(category, term);
 			await this.page.goto(url);

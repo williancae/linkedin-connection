@@ -3,6 +3,7 @@ import { select } from '@inquirer/prompts';
 import puppeteer from 'puppeteer';
 import { browserConstants } from './config/constants';
 import puppeteerConfig from './config/puppeteer.config';
+import CommentsModule from './modules/comments';
 import ConnectModule from './modules/connect';
 import FollowerModule from './modules/follow';
 import LikeModule from './modules/like';
@@ -10,7 +11,7 @@ import { LoginModule } from './modules/login';
 import { delayRandom } from './utils/delay';
 import header from './utils/header';
 
-const { pages: PAGES } = browserConstants;
+const { pages: PAGES, components: COMPONENTS } = browserConstants;
 
 (async () => {
 	const browser = await puppeteer.launch(puppeteerConfig);
@@ -29,6 +30,8 @@ const { pages: PAGES } = browserConstants;
 	header('Linkedin Bot', 'Bot para automatizar ações no Linkedin', 'green');
 	while (true) {
 		await page.goto(PAGES.feed);
+		const username = (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
+
 		const option = await select({
 			message: 'Select a package manager',
 			choices: [
@@ -45,8 +48,12 @@ const { pages: PAGES } = browserConstants;
 					value: 3,
 				},
 				{
-					name: '4. Sair',
+					name: '4. Comentar posts',
 					value: 4,
+				},
+				{
+					name: '5. Sair',
+					value: 5,
 				},
 			],
 		});
@@ -65,6 +72,10 @@ const { pages: PAGES } = browserConstants;
 				await new LikeModule(browser, page).run();
 				break;
 			case 4:
+				//DONE:
+				await new CommentsModule(browser, page, username).run();
+				break;
+			case 5:
 				await browser.close();
 				return;
 			default:
