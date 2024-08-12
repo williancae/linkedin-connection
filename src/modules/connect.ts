@@ -4,6 +4,7 @@ import { browserConstants } from '../config/constants';
 import buildURL from '../utils/build-urls';
 import { delayRandom } from '../utils/delay';
 import header from '../utils/header';
+import { TypePageEnum } from '../utils/type-page';
 import { getInputNumber, getInputText } from './../utils/input';
 
 const { connect: CONNECT, pages: PAGES } = browserConstants;
@@ -135,7 +136,7 @@ class ConnectModule {
 
 	async startConnect(amount: number, term: string, note: string): Promise<void> {
 		try {
-			const url = buildURL('people', term, '');
+			const url = buildURL(TypePageEnum.PEOPLE, term, '');
 			await this.page.goto(url);
 			await delayRandom(2000, 5000);
 
