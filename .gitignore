@@ -15,3 +15,4 @@ package-lock.json
 src/config/cache
 .cache
 cookies.json
+.DS_Store

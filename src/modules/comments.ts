@@ -2,6 +2,7 @@ import { Browser, ElementHandle, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
 import buildURL from '../utils/build-urls';
 import { delayRandom } from '../utils/delay';
+
 import header from '../utils/header';
 import { getInputNumber, getInputText } from '../utils/input';
 import { getRandomInt } from '../utils/random';
@@ -10,11 +11,14 @@ import { TypePageEnum } from '../utils/type-page';
 const { comments: COMMENTS } = browserConstants;
 
 class CommentsModule {
+	private commentedPost: string[] = [];
+
 	constructor(
 		private browser: Browser,
 		private page: Page,
 		private username: string,
 	) {
+		this.commentedPost = [];
 		this.browser = browser;
 		this.page = page;
 		this.username = username.trim();
@@ -25,6 +29,9 @@ class CommentsModule {
 		const cards = await this.page.$$(COMMENTS.cards);
 		for (const card of cards) {
 			const name = (await card.$eval(COMMENTS.getName, el => el.textContent)) as string;
+			if (this.commentedPost.includes(name)) {
+				continue;
+			}
 			const button = await card.$(COMMENTS.btnComment);
 
 			response.push({ card, name, button });
@@ -48,8 +55,9 @@ class CommentsModule {
 		await this.page.keyboard.type(message, { delay: getRandomInt(50, 80) });
 		await delayRandom(800, 1000);
 
-		await this.page.waitForSelector(COMMENTS.btnSend);
+		// await this.page.waitForSelector(COMMENTS.btnSend);
 		const btnSend = await this.page.$(COMMENTS.btnSend);
+		console.log('btnSend', btnSend);
 		if (!btnSend) {
 			return;
 		}
@@ -68,17 +76,19 @@ class CommentsModule {
 		}
 	}
 
-	async getComment() {
+	async getComment(isRandom = false) {
 		// Parabéns pela conquista, {{name}}! 🎉🎉🎉
-		while (true) {
-			header(
-				'Linkedin Bot',
-				'Digite a mensagem que deseja comentar\nObs.:Lembre de ser genério e escrever um comentário relacionado ao termo de pesquisa.',
-				'green',
-			);
-			const comment = await getInputText('Comentário: ');
-			if (comment.length > 0) {
-				return comment;
+		if (isRandom) {
+			while (true) {
+				header(
+					'Linkedin Bot',
+					'Digite a mensagem que deseja comentar\nObs.:Lembre de ser genério e escrever um comentário relacionado ao termo de pesquisa.',
+					'green',
+				);
+				const comment = await getInputText('Comentário: ');
+				if (comment.length > 0) {
+					return comment;
+				}
 			}
 		}
 	}
@@ -118,6 +128,7 @@ class CommentsModule {
 				await delayRandom(1000, 3000);
 
 				await this.setComment(card, button, name, comment);
+				this.commentedPost.push(name);
 
 				await this.page.waitForSelector(COMMENTS.btnShowMorePosts);
 				const btnShowMorePosts = await this.page.$(COMMENTS.btnShowMorePosts);

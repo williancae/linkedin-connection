@@ -30,6 +30,7 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 	header('Linkedin Bot', 'Bot para automatizar ações no Linkedin', 'green');
 	while (true) {
 		await page.goto(PAGES.feed);
+		await page.waitForSelector(COMPONENTS.username);
 		const username = (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
 
 		const option = await select({
