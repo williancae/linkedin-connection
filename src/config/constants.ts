@@ -23,7 +23,7 @@ const browserConstants = {
 		btnChatIsOpen: "[data-test-icon='chevron-down-small']",
 	},
 	connect: {
-		url: 'https://www.linkedin.com/search/results/people/?activelyHiring=%22true%22&geoUrn=%5B"106057199"%5D&keywords={{term}}',
+		url: 'https://www.linkedin.com/search/results/people/?activelyHiringForJobTitles=%5B"9"%2C"25201"%2C"39"%5D&keywords={{term}',
 		connectButton: `button[aria-label*="Convidar"]`,
 		getName: (value: string) => value.split(' ')[1],
 		btnNoSendNote: `button[aria-label*="sem nota"]`,
@@ -41,7 +41,7 @@ const browserConstants = {
 		getName:
 			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
 		btnComment: "button[aria-label='Comentar']",
-		btnSend: '.artdeco-button artdeco-button--1 artdeco-button--tertiary',
+		btnSend: '.m2.artdeco-button.artdeco-button--1.artdeco-button--tertiary.ember-view',
 		getCommentsAuthor: 'h3.comments-comment-meta__description',
 		btnShowMorePosts:
 			'.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button',

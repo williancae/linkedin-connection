@@ -93,7 +93,7 @@ export default class LikeModule {
 			const hashtags = await this.getHashtag();
 
 			for (const hashtag of hashtags) {
-				await this.likingPosts(20, hashtag);
+				await this.likingPosts(amount, hashtag);
 				await delayRandom(3000, 5000);
 			}
 		} catch (err) {
