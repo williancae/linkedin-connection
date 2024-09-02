@@ -18,9 +18,9 @@ const browserConstants = {
 			'.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button',
 	},
 	chat: {
-		btnChat: '.msg-overlay-bubble-header__control--new-convo-btn',
-		btnChatIsClose: "[data-test-icon='chevron-up-small']",
-		btnChatIsOpen: "[data-test-icon='chevron-down-small']",
+		cards: "div[aria-label='Mensagens']",
+		svgClose: '[data-test-icon="close-small"]', // pegar parentNode or parentElement
+		times: "time[class='msg-s-message-list__time-heading t-12 t-black--light t-bold']",
 	},
 	connect: {
 		url: 'https://www.linkedin.com/search/results/people/?activelyHiringForJobTitles=%5B"9"%2C"25201"%2C"39"%5D&keywords={{term}',
@@ -31,6 +31,11 @@ const browserConstants = {
 		inputNote: "textarea[name='message']",
 		btnSendNote: "button[aria-label*='Enviar convite']",
 		nextPage: "button[aria-label='Avançar']",
+	},
+	message_to_followers: {
+		url: 'https://www.linkedin.com/search/results/people/?keywords={{term}}&network=%5B%22F%22%5D&origin=FACETED_SEARCH&searchId=2dd82cfe-c0d4-47fb-9789-28955f8f0708',
+		btnMessage: 'button[aria-label*="Enviar mensagem"]',
+		buttonPages: "button[aria-label*='Página']",
 	},
 	followers: {
 		btnFollow: "button[aria-label*='Seguir']",

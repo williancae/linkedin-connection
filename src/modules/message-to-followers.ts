@@ -8,3 +8,4 @@ export class MessageToFollowers {
 		this.page = page;
 	}
 }
+// https://www.linkedin.com/posts/willian-cae_opentowork-activity-7234650964517879809-7fbh?utm_source=share&utm_medium=member_desktop

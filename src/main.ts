@@ -29,60 +29,65 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 
 	header('Linkedin Bot', 'Bot para automatizar ações no Linkedin', 'green');
 	while (true) {
-		await page.goto(PAGES.feed);
-		await page.waitForSelector(COMPONENTS.username);
-		const username = (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
+		try {
+			await page.goto(PAGES.feed);
+			await page.waitForSelector(COMPONENTS.username);
+			const username = (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
 
-		const option = await select({
-			message: 'Select a package manager',
-			choices: [
-				{
-					name: '1. Conectar com pessoas',
-					value: 1,
-				},
-				{
-					name: '2. Seguir pessoas',
-					value: 2,
-				},
-				{
-					name: '3. Curtir posts',
-					value: 3,
-				},
-				{
-					name: '4. Comentar posts',
-					value: 4,
-				},
-				{
-					name: '5. Sair',
-					value: 5,
-				},
-			],
-		});
+			const option = await select({
+				message: 'Select a package manager',
+				choices: [
+					{
+						name: '1. Conectar com pessoas',
+						value: 1,
+					},
+					{
+						name: '2. Seguir pessoas',
+						value: 2,
+					},
+					{
+						name: '3. Curtir posts',
+						value: 3,
+					},
+					{
+						name: '4. Comentar posts',
+						value: 4,
+					},
+					{
+						name: '5. Sair',
+						value: 5,
+					},
+				],
+			});
 
-		switch (option) {
-			case 1:
-				//DONE:
-				await new ConnectModule(browser, page).run();
-				break;
-			case 2:
-				//DONE:
-				await new FollowerModule(browser, page).run();
-				break;
-			case 3:
-				//DONE:
-				await new LikeModule(browser, page).run();
-				break;
-			case 4:
-				//DONE:
-				await new CommentsModule(browser, page, username).run();
-				break;
-			case 5:
-				await browser.close();
-				return;
-			default:
-				console.log('Opção inválida');
-				break;
+			switch (option) {
+				case 1:
+					//DONE:
+					await new ConnectModule(browser, page).run();
+					break;
+				case 2:
+					//DONE:
+					await new FollowerModule(browser, page).run();
+					break;
+				case 3:
+					//DONE:
+					await new LikeModule(browser, page).run();
+					break;
+				case 4:
+					//DONE:
+					await new CommentsModule(browser, page, username).run();
+					break;
+				case 5:
+					await browser.close();
+					return;
+				default:
+					console.log('Opção inválida');
+					break;
+			}
+			console.clear();
+		} catch (error) {
+			console.clear();
+			continue;
 		}
-		console.clear();
 	}
 })();

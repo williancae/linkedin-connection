@@ -67,6 +67,7 @@ class CommentsModule {
 
 	async getTerm() {
 		// "Estou Comemorando"  and "ano na"
+		// "scrum master" and "vaga"
 		while (true) {
 			header('Linkedin Bot', 'Informe o termo de busca.\nExemplo: "Estou comemorando 13 anos na", ', 'green');
 			const term = await getInputText('Termo: ');
@@ -76,19 +77,19 @@ class CommentsModule {
 		}
 	}
 
-	async getComment(isRandom = false) {
+	async getComment() {
 		// Parabéns pela conquista, {{name}}! 🎉🎉🎉
-		if (isRandom) {
-			while (true) {
-				header(
-					'Linkedin Bot',
-					'Digite a mensagem que deseja comentar\nObs.:Lembre de ser genério e escrever um comentário relacionado ao termo de pesquisa.',
-					'green',
-				);
-				const comment = await getInputText('Comentário: ');
-				if (comment.length > 0) {
-					return comment;
-				}
+		// Boa sorte na procura, {{name}}. Vai dá tudo certo!! 🙌 #opentowork
+		// Recomendo meu amigo, Pedro Fortes! Melhor Scrum com quem já trabalhei. Perfil: https://www.linkedin.com/in/fortespedro/
+		while (true) {
+			header(
+				'Linkedin Bot',
+				'Digite a mensagem que deseja comentar\nObs.:Lembre de ser genério e escrever um comentário relacionado ao termo de pesquisa.',
+				'green',
+			);
+			const comment = await getInputText('Comentário: ');
+			if (comment.length > 0) {
+				return comment;
 			}
 		}
 	}
@@ -96,9 +97,8 @@ class CommentsModule {
 	async getAmount() {
 		while (true) {
 			header('Linkedin Bot', 'Quantidade de posts que deseja comentar. Máximo: 250\nValor padrão: 20\n', 'green');
-			const amountPosts = await getInputNumber('Quantidade: ');
+			const amountPosts = await getInputNumber('Quantidade: ', 20);
 			if (amountPosts < 1 || amountPosts > 250) {
-				console.log('Quantidade inválida');
 				continue;
 			}
 			return amountPosts;
@@ -108,8 +108,8 @@ class CommentsModule {
 	async run() {
 		let count = 0;
 		const term = await this.getTerm();
-		let comment = await this.getComment();
 		const amount = await this.getAmount();
+		let comment = await this.getComment();
 		const url = buildURL(TypePageEnum.PUBLICATIONS, term);
 		await this.page.goto(url);
 		await delayRandom(3000, 5000);
