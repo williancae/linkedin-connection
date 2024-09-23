@@ -27,10 +27,10 @@ ou
 # Clone o repositório via https ou ssh
 
 #https clone:
-git clone https://github.com/AndersonAlvesCoelho/linkedin-connection.git
+git clone https://github.com/williancae/linkedin-connection.git
 
 #ssh clone:
-git clone git@github.com:AndersonAlvesCoelho/linkedin-connection.git
+git clone git@github.com:williancae/linkedin-connection.git
 ```
 
 ### Para rodar o projeto
