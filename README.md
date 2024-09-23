@@ -42,7 +42,7 @@ npm install
 npm start
 
 # Em seguida prencha os campos do
-# formulário que irão aparecer no terminal
+# Faça o login pelo navegador!!
 ```
 
 ---
