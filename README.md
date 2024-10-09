@@ -27,10 +27,10 @@ ou
 # Clone o repositório via https ou ssh
 
 #https clone:
-git clone https://github.com/AndersonAlvesCoelho/linkedin-connection.git
+git clone https://github.com/williancae/linkedin-connection.git
 
 #ssh clone:
-git clone git@github.com:AndersonAlvesCoelho/linkedin-connection.git
+git clone git@github.com:williancae/linkedin-connection.git
 ```
 
 ### Para rodar o projeto
@@ -42,7 +42,7 @@ npm install
 npm start
 
 # Em seguida prencha os campos do
-# formulário que irão aparecer no terminal
+# Faça o login pelo navegador!!
 ```
 
 ---
