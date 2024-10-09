@@ -136,17 +136,22 @@ class ConnectModule {
 
 	async startConnect(amount: number, term: string, note: string): Promise<void> {
 		try {
-			const url = buildURL(TypePageEnum.PEOPLE, term, '');
+			const url = buildURL(TypePageEnum.PEOPLE, term);
 			await this.page.goto(url);
 			await delayRandom(2000, 5000);
 
 			let count = 0;
 			while (true) {
 				await delayRandom(3000, 5000);
-				await this.page.waitForSelector(CONNECT.connectButton);
+				// await this.page.waitForSelector(CONNECT.connectButton);
 				const buttonsOfPeoples = await this.page.$$(CONNECT.connectButton);
+
 				if (buttonsOfPeoples.length === 0) {
-					return;
+					await this.page.waitForSelector(CONNECT.nextPage);
+					await this.page.click(CONNECT.nextPage).catch(() => {
+						console.log('Acabou as conexões');
+						return;
+					});
 				}
 				for (const people of buttonsOfPeoples) {
 					if (count >= amount) {

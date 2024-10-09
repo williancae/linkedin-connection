@@ -65,5 +65,37 @@ const browserConstants = {
 		],
 		nextPage: 'button.artdeco-pagination__button--next',
 	},
+	interact_with_my_network: {
+		btns: {
+			firstBtn: 'button[aria-label*="Enviar mensagem"]',
+			sendMessage: 'button[data-view-name="messaging-modal-send-button"]',
+		},
+		info: {
+			btnLabel: 'button > span',
+		},
+		url: 'https://www.linkedin.com/mynetwork/catch-up/{{option}}/',
+		options: [
+			{
+				name: 'Todos',
+				value: 'all',
+			},
+			{
+				name: 'Aniversariantes',
+				value: 'birthday',
+			},
+			{
+				name: 'Mudanças de emprego',
+				value: 'job_changes',
+			},
+			{
+				name: 'Aniversariantes do trabalho',
+				value: 'work_anniversaries',
+			},
+			{
+				name: 'Educação',
+				value: 'education',
+			},
+		],
+	},
 };
 export { browserConstants };

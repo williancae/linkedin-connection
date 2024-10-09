@@ -53,8 +53,8 @@ export default class LikeModule {
 
 			let count = 0;
 			while (true) {
-				await this.page.waitForSelector('#fie-impression-container');
-				const cards = await this.page.$$('#fie-impression-container');
+				await this.page.waitForSelector('.fie-impression-container');
+				const cards = await this.page.$$('.fie-impression-container');
 				if (cards.length === 0) {
 					return;
 				}

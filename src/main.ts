@@ -6,6 +6,7 @@ import puppeteerConfig from './config/puppeteer.config';
 import CommentsModule from './modules/comments';
 import ConnectModule from './modules/connect';
 import FollowerModule from './modules/follow';
+import { InteractWithMyNetworkModule } from './modules/interact-with-my-network';
 import LikeModule from './modules/like';
 import { LoginModule } from './modules/login';
 import { delayRandom } from './utils/delay';
@@ -31,8 +32,9 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 	while (true) {
 		try {
 			await page.goto(PAGES.feed);
-			await page.waitForSelector(COMPONENTS.username);
-			const username = (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
+			// await page.waitForSelector(COMPONENTS.username);
+			const username = 'Willian Ceatano';
+			// (await page.$eval(COMPONENTS.username, el => el.textContent)) as string;
 
 			const option = await select({
 				message: 'Select a package manager',
@@ -54,8 +56,12 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 						value: 4,
 					},
 					{
-						name: '5. Sair',
+						name: '5. Interagir com seguidores',
 						value: 5,
+					},
+					{
+						name: '6. Sair',
+						value: 6,
 					},
 				],
 			});
@@ -78,6 +84,11 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 					await new CommentsModule(browser, page, username).run();
 					break;
 				case 5:
+					//DONE:
+					await new InteractWithMyNetworkModule(browser, page, username).run();
+					break;
+
+				case 6:
 					await browser.close();
 					return;
 				default:
