@@ -1,10 +1,11 @@
 import { select } from '@inquirer/prompts';
 import { Browser, ElementHandle, Page } from 'puppeteer';
 import { browserConstants } from '../config/constants';
+import { closeChats } from '../utils/close-chats';
 import { delayRandom } from '../utils/delay';
 import { getInputNumber } from '../utils/input';
 const {
-	btns: { firstBtn: FIRST_BTN, sendMessage: SEND_MESSAGE },
+	btns: { ofInteraction: OF_INTERACTION, sendMessage: SEND_MESSAGE },
 	info: { btnLabel: BTN_LABEL },
 	options: OPTIONS,
 	url: URL,
@@ -39,8 +40,8 @@ export class InteractWithMyNetworkModule {
 
 	async getFirstBtns(): Promise<ElementHandle[]> {
 		await delayRandom(3000, 5000);
-		await this.page.waitForSelector(FIRST_BTN);
-		const btns = await this.page.$$(FIRST_BTN);
+		await this.page.waitForSelector(OF_INTERACTION);
+		const btns = await this.page.$$(OF_INTERACTION);
 		return btns;
 	}
 
@@ -68,11 +69,10 @@ export class InteractWithMyNetworkModule {
 				}
 				await btn.click();
 				await delayRandom(2000, 3000);
-				await this.page.waitForSelector(SEND_MESSAGE);
-				const sendMessage = (await this.page.$(SEND_MESSAGE)) as ElementHandle;
-				await sendMessage.click();
+				await this.page.keyboard.press('Enter');
 				await delayRandom(2000, 3000);
 
+				await closeChats(this.page);
 				count++;
 				if (count >= amountConnections) {
 					return;

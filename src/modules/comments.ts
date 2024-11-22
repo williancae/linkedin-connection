@@ -40,6 +40,7 @@ class CommentsModule {
 	}
 
 	async setComment(card: ElementHandle<Element>, btn: ElementHandle<Element>, name: string, message: string) {
+		name = name.split(' ')[0];
 		message = message.replace('{{name}}', name).trim();
 		await delayRandom(500, 1000);
 		await btn.click();
@@ -57,7 +58,6 @@ class CommentsModule {
 
 		// await this.page.waitForSelector(COMMENTS.btnSend);
 		const btnSend = await this.page.$(COMMENTS.btnSend);
-		console.log('btnSend', btnSend);
 		if (!btnSend) {
 			return;
 		}

@@ -42,12 +42,11 @@ const browserConstants = {
 		nextPage: "button[aria-label='Avançar']",
 	},
 	comments: {
-		cards: 'div#fie-impression-container',
+		cards: 'div.fie-impression-container',
 		getName:
 			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
 		btnComment: "button[aria-label='Comentar']",
-		btnSend:
-			'form.comments-comment-box__form > div > button.comments-comment-box__submit-button.mt3.artdeco-button.artdeco-button--1.artdeco-button--primary.ember-view',
+		btnSend: 'form.comments-comment-box__form > div > div > div.display-flex > div > button',
 		getCommentsAuthor: 'h3.comments-comment-meta__description',
 		btnShowMorePosts:
 			'.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button',
@@ -67,7 +66,8 @@ const browserConstants = {
 	},
 	interact_with_my_network: {
 		btns: {
-			firstBtn: 'button[aria-label*="Enviar mensagem"]',
+			ofInteraction:
+				'.artdeco-button.artdeco-button--muted.artdeco-button--2.artdeco-button--secondary.ember-view.props-s-cta',
 			sendMessage: 'button[data-view-name="messaging-modal-send-button"]',
 		},
 		info: {
@@ -81,7 +81,7 @@ const browserConstants = {
 			},
 			{
 				name: 'Aniversariantes',
-				value: 'birthday',
+				value: 'birthdays',
 			},
 			{
 				name: 'Mudanças de emprego',
