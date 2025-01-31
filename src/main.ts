@@ -98,9 +98,7 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 					console.log('Opção inválida');
 					break;
 			}
-			console.clear();
 		} catch (error) {
-			console.clear();
 			continue;
 		}
 	}

@@ -44,7 +44,7 @@ const browserConstants = {
 	comments: {
 		cards: 'div.fie-impression-container',
 		getName:
-			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
+			'span.rMHTMgNZejrSyFbxZyVvJJmGGtCQeoVTgHrkZg.hoverable-link-text.t-14.t-bold.text-body-medium-bold.t-black.white-space-nowrap > span > span:nth-child(1)',
 		btnComment: "button[aria-label='Comentar']",
 		btnSend: 'form.comments-comment-box__form > div > div > div.display-flex > div > button',
 		getCommentsAuthor: 'h3.comments-comment-meta__description',

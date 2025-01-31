@@ -27,8 +27,10 @@ class CommentsModule {
 	async getPosts() {
 		let response = [];
 		const cards = await this.page.$$(COMMENTS.cards);
+		console.log('Cards:', cards.length);
 		for (const card of cards) {
 			const name = (await card.$eval(COMMENTS.getName, el => el.textContent)) as string;
+			console.log('Name:', name);
 			if (this.commentedPost.includes(name)) {
 				continue;
 			}
@@ -110,7 +112,14 @@ class CommentsModule {
 		const term = await this.getTerm();
 		const amount = await this.getAmount();
 		let comment = await this.getComment();
+		console.log({
+			term,
+			amount,
+			comment,
+		});
+
 		const url = buildURL(TypePageEnum.PUBLICATIONS, term);
+
 		await this.page.goto(url);
 		await delayRandom(3000, 5000);
 		while (true) {
