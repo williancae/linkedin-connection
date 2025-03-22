@@ -25,7 +25,7 @@ class ConnectModule {
 			if (['s', 'n'].includes(needSendNote)) {
 				return needSendNote === 's';
 			}
-			console.clear();
+			// console.clear();
 			console.log('Opção inválida, tente novamente.');
 		}
 	}

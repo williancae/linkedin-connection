@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 const DIRCACHE = path.join(__dirname, './cache/.browser');
 
 export function getExecutablePath() {

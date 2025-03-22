@@ -10,10 +10,9 @@ const browserConstants = {
 	},
 	like: {
 		cards: '#fie-impression-container',
-		getName:
-			'span.update-components-actor__name.hoverable-link-text.t-14.t-bold.t-black > span > span:nth-child(1)',
+		getName: 'span.update-components-actor__title > span > span > span.visually-hidden',
 		btnsOfPost:
-			"button.artdeco-button.artdeco-button--muted.artdeco-button--4.artdeco-button--tertiary.ember-view.social-actions-button.react-button__trigger[aria-pressed='false']",
+			"button.artdeco-button--tertiary.ember-view.social-actions-button.react-button__trigger[aria-pressed='false']",
 		btnShowMorePosts:
 			'.artdeco-button.artdeco-button--muted.artdeco-button--1.artdeco-button--full.artdeco-button--secondary.ember-view.scaffold-finite-scroll__load-button',
 	},
@@ -39,7 +38,7 @@ const browserConstants = {
 	},
 	followers: {
 		btnFollow: "button[aria-label*='Seguir']",
-		nextPage: "button[aria-label='Avançar']",
+		nextPage: 'button.artdeco-pagination__button--next',
 	},
 	comments: {
 		cards: 'div.fie-impression-container',
@@ -66,8 +65,7 @@ const browserConstants = {
 	},
 	interact_with_my_network: {
 		btns: {
-			ofInteraction:
-				'.artdeco-button.artdeco-button--muted.artdeco-button--2.artdeco-button--secondary.ember-view.props-s-cta',
+			ofInteraction: '.cnutht18g.cnutht0.cnuthtgw.cnuthtio._1ptbkx61fs > button',
 			sendMessage: 'button[data-view-name="messaging-modal-send-button"]',
 		},
 		info: {

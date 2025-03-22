@@ -74,17 +74,29 @@ class FollowerModule {
 			const url = buildURL(category, term);
 			await this.page.goto(url);
 			await delayRandom(3000, 400);
+			await this.page.evaluate(() => {
+				window.scrollTo(0, document.body.scrollHeight);
+			});
 
 			let count = 0;
-			await this.page.waitForSelector(FOLLOWERS.btnFollow);
-			const buttons = await this.page.$$(FOLLOWERS.btnFollow);
-			for (const button of buttons) {
-				if (count >= amount) {
-					return;
+			while (amount > count) {
+				const existElement = await this.page.waitForSelector(FOLLOWERS.btnFollow).catch(() => null);
+				if (existElement == null) {
+					await this.page.waitForSelector(FOLLOWERS.nextPage);
+					await this.page.click(FOLLOWERS.nextPage);
+					await delayRandom(3000, 400);
+					continue;
 				}
-				await button.click();
-				await delayRandom(300, 800);
-				count++;
+
+				const buttons = await this.page.$$(FOLLOWERS.btnFollow);
+				for (const button of buttons) {
+					if (count >= amount) {
+						return;
+					}
+					await button.click();
+					await delayRandom(300, 800);
+					count++;
+				}
 			}
 		} catch (err) {
 			console.error('Err: ', err);

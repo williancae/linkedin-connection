@@ -69,7 +69,8 @@ export class InteractWithMyNetworkModule {
 				}
 				await btn.click();
 				await delayRandom(2000, 3000);
-				await this.page.keyboard.press('Enter');
+				const sendMessageBtn = await this.page.waitForSelector(SEND_MESSAGE);
+				await sendMessageBtn?.click();
 				await delayRandom(2000, 3000);
 
 				await closeChats(this.page);

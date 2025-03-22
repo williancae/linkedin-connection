@@ -1,7 +1,7 @@
 import boxen from 'boxen';
 
 export default function header(title: string = 'Linkedin Bot', description: string = '', color: string = 'green') {
-	console.clear();
+	// console.clear();
 
 	console.log('\n');
 	console.log(

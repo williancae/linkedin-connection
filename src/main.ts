@@ -1,6 +1,6 @@
 import { select } from '@inquirer/prompts';
 
-import puppeteer from 'puppeteer';
+import puppeteer, { Browser, Page } from 'puppeteer';
 import { browserConstants } from './config/constants';
 import puppeteerConfig from './config/puppeteer.config';
 import CommentsModule from './modules/comments';
@@ -15,9 +15,24 @@ import header from './utils/header';
 
 const { pages: PAGES, components: COMPONENTS } = browserConstants;
 
-(async () => {
-	const browser = await puppeteer.launch(puppeteerConfig);
-	const page = await browser.newPage();
+// Variáveis globais para o browser e página
+let browser: Browser | null = null;
+let page: Page | null = null;
+
+// Função para iniciar o navegador
+async function startBrowser(): Promise<Page> {
+  if (!browser) {
+    browser = await puppeteer.launch(puppeteerConfig);
+  }
+  if (!page) {
+    page = await browser.newPage();
+  }
+  return page;
+}
+
+
+async function main(){
+	const page = await startBrowser();
 
 	await page.goto(PAGES.feed);
 	await delayRandom(1000, 5000);
@@ -102,4 +117,8 @@ const { pages: PAGES, components: COMPONENTS } = browserConstants;
 			continue;
 		}
 	}
-})();
+}
+
+
+
+main()

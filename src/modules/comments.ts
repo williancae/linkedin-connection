@@ -47,8 +47,8 @@ class CommentsModule {
 		await delayRandom(500, 1000);
 		await btn.click();
 		await delayRandom(800, 1200);
-		const comments = await card.$$eval(COMMENTS.getCommentsAuthor, el =>
-			el.map(comment => comment.textContent?.replace('\n', '').trim()),
+		const comments = await card.$$eval(COMMENTS.getCommentsAuthor, (el:any) =>
+			el.map((comment:any) => comment.textContent?.replace('\n', '').trim()),
 		);
 		if (comments.includes(this.username)) {
 			return;

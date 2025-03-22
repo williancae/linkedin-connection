@@ -1,5 +1,5 @@
 export enum TypePageEnum {
 	PEOPLE = 'people',
-	BUSINESS = 'business',
+	BUSINESS = 'companies',
 	PUBLICATIONS = 'content',
 }
